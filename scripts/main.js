@@ -13,7 +13,7 @@ const deleteZombie = () => {
   }, {})
   const filterdNames = Object.keys(counts).filter((name) => counts[name] > 2)
   const filteredElements = Array.from(articles).filter((e) => filterdNames.some(name => e.textContent.includes(name)));
-  filteredElements.forEach((e) => e.style.display = "none");
+  filteredElements.forEach((e) => e.parentElement.parentElement.parentElement.style.display = "none");
 }
 const main = async () => {
   try {
