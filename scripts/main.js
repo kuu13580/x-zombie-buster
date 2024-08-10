@@ -1,3 +1,4 @@
+if (!location.href.startsWith("https://x.com/")) return
 console.log("ZonbieBuster Initialized");
 const deletePromotion = () => {
   const articles = document.querySelectorAll("article");
