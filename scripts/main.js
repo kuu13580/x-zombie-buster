@@ -1,3 +1,4 @@
+console.log("ZonbieBuster Initialized");
 const deletePromotion = () => {
   const articles = document.querySelectorAll("article");
   const filteredElements = Array.from(articles).filter((e) => e.textContent.includes("プロモーション"));
