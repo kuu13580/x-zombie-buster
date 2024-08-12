@@ -17,12 +17,39 @@ const deleteZombie = () => {
   const filteredElements = Array.from(articles).filter((e) => filterdNames.some(name => e.textContent.includes(name)));
   filteredElements.forEach((e) => e.parentElement.parentElement.parentElement.style.display = "none");
 }
+
+let options = {
+  repeat: false,
+};
+
+const fetchOptions = async () => {
+  chrome.storage.local.get(["options"]).then((result) => {
+    if (!result.options) return;
+    options = result.options;
+  });
+}
+
+chrome.storage.onChanged.addListener(() => {
+  fetchOptions();
+});
+
+const getOptionValue = (key) => {
+  return options.hasOwnProperty(key) ? options[key] : undefined;
+}
+
 const main = async () => {
+  console.log(`repeat: ${getOptionValue("repeat")}`);
+  if (getOptionValue("repeat")) {
+    try {
+      deleteZombie()
+    } catch { }
+  }
   try {
     deletePromotion()
-    deleteZombie()
   } catch { }
   await new Promise((resolve) => setTimeout(resolve, 1000));
   main();
 }
+
+fetchOptions();
 main();

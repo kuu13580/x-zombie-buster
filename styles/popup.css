@@ -1,0 +1,63 @@
+:root {
+  --toggle-width: 3em;
+  --toggle-height: 1.5em;
+  --toggle-padding: 2px;
+}
+
+body {
+  width: 20rem;
+}
+
+.toggle {
+  position: absolute;
+  margin-left: -9999px;
+  visibility: hidden;
+}
+
+.toggle+label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+input.toggle-round+label {
+  padding: var(--toggle-padding);
+  width: var(--toggle-width);
+  height: var(--toggle-height);
+  background-color: #dddddd;
+  border-radius: var(--toggle-height);
+  transition: background-color .4s;
+}
+
+input.toggle-round+label:after {
+  display: block;
+  top: calc(var(--toggle-padding) / 2);
+  left: calc(var(--toggle-padding) / 2);
+  content: "";
+  position: relative;
+  width: calc(var(--toggle-height) - var(--toggle-padding));
+  height: calc(var(--toggle-height) - var(--toggle-padding));
+  background-color: #fff;
+  border-radius: 100%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  transition: margin .4s;
+}
+
+input.toggle-round:checked+label {
+  background-color: #8ce196;
+}
+
+input.toggle-round:checked+label:after {
+  margin-left: var(--toggle-height);
+}
+
+.toggle-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: .5em;
+}

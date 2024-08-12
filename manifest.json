@@ -8,10 +8,21 @@
     "48": "icons/icon48.png",
     "128": "icons/icon128.png"
   },
-  "content_scripts": [{
-    "matches": ["https://x.com/*"],
-    "js": [
-      "scripts/main.js"
-    ]
-  }]
+  "permissions": [
+    "storage"
+  ],
+  "action": {
+    "default_title": "Click to view a popup",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://x.com/*"
+      ],
+      "js": [
+        "scripts/main.js"
+      ]
+    }
+  ]
 }

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>ポップアップ</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="styles/popup.css" />
+    <script src="scripts/popup.js" defer></script>
+  </head>
+  <body>
+    <div class="toggle-container">
+      <input id="repeat" class="toggle toggle-round" type="checkbox" />
+      <label for="repeat"></label>
+      <div class="toggle-label">繰り返し投稿を抑制する</div>
+    </div>
+    <div>
+      閾値：<input id="threshold" type="number" value="5" min="1" max="100" />
+    </div>
+  </body>
+</html>
