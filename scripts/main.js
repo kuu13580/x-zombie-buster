@@ -8,14 +8,14 @@ const deleteArticle = (targetArticles) => {
 }
 
 const getOwnerName = () => {
-  deleteArticle(filteredElements);
+  if (window.location.href.startsWith("https://x.com/home")) return;
   return window.location.href.split("/")[3];
 }
 
 const deletePromotion = () => {
   const articles = document.querySelectorAll("article");
   const filteredElements = Array.from(articles).filter((e) => e.textContent.includes("プロモーション"));
-  filteredElements.forEach((e) => e.style.display = "none");
+  deleteArticle(filteredElements);
 }
 
 const deleteZombie = () => {
@@ -29,13 +29,21 @@ const deleteZombie = () => {
   delete counts[getOwnerName()];
   const filterdNames = Object.keys(counts).filter((name) => counts[name] > getOptionValue("repeatThreshold"));
   const filteredElements = Array.from(articles).filter((e) => filterdNames.some(name => e.textContent.includes(name) && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`));
-  filteredElements.forEach((e) => e.parentElement.parentElement.parentElement.style.display = "none");
+  deleteArticle(filteredElements);
+}
+
+const deleteVerified = () => {
+  if (window.location.href.startsWith("https://x.com/home")) return;
+  const articles = document.querySelectorAll("article");
+  const filteredElements = Array.from(articles).filter((e) => e.querySelectorAll("svg[data-test-id='icon-verified']") && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`);
+  deleteArticle(filteredElements);
 }
 
 const defalstOptions = {
   repeat: false,
   repeatThreshold: 2,
-  promotion: false
+  promotion: false,
+  verified: false
 };
 
 let options = defalstOptions;
@@ -55,7 +63,13 @@ const getOptionValue = (key) => {
   return options.hasOwnProperty(key) ? options[key] : defalstOptions[key];
 }
 
-const main = async () => {
+const main = () => {
+  console.log("main");
+  if (getOptionValue("verified")) {
+    try {
+      deleteVerified()
+    } catch { }
+  }
   if (getOptionValue("repeat")) {
     try {
       deleteZombie()
@@ -66,9 +80,7 @@ const main = async () => {
       deletePromotion()
     } catch { }
   }
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-  main();
 }
 
 fetchOptions();
-main();
+setInterval(main, 1000);
