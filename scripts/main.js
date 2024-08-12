@@ -1,10 +1,12 @@
 console.log("ZonbieBuster Initialized");
+
 const deletePromotion = () => {
   const articles = document.querySelectorAll("article");
   const filteredElements = Array.from(articles).filter((e) => e.textContent.includes("プロモーション"));
   filteredElements.forEach((e) => e.style.display = "none");
 }
 const deleteZombie = () => {
+  if (window.location.href.startsWith("https://x.com/home")) return;
   const articles = document.querySelectorAll("article");
   const elements = Array.from(articles).map((e) => e.querySelectorAll("a")[2].innerText)
   const counts = elements.reduce((prev, cur) => {
