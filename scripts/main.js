@@ -21,6 +21,7 @@ const deleteZombie = () => {
 const defalstOptions = {
   repeat: false,
   repeatThreshold: 2,
+  promotion: false
 };
 
 let options = defalstOptions;
@@ -41,16 +42,16 @@ const getOptionValue = (key) => {
 }
 
 const main = async () => {
-  console.log(`repeat: ${getOptionValue("repeat")}`);
-  console.log(`repeatThreshold: ${getOptionValue("repeatThreshold")}`);
   if (getOptionValue("repeat")) {
     try {
       deleteZombie()
     } catch { }
   }
-  try {
-    deletePromotion()
-  } catch { }
+  if (getOptionValue("promotion")) {
+    try {
+      deletePromotion()
+    } catch { }
+  }
   await new Promise((resolve) => setTimeout(resolve, 1000));
   main();
 }
