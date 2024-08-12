@@ -1,11 +1,20 @@
 let zombieUsers = new Set();
 
 const deleteArticles = (targetArticles) => {
+  let i = 0;
   Array.from(targetArticles).forEach((article) => {
+    if (article.parentElement.parentElement.style.display == "none") return;
+    if (i++ > 10) return;
     article.parentElement.parentElement.style.display = "none";
   });
 }
 
+const deleteZombies = () => {
+  const articles = document.querySelectorAll("article");
+  const filteredArticles = Array.from(articles).filter((e) => Array.from(zombieUsers).some(name => e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText == name) && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`);
+  console.log(filteredArticles);
+  deleteArticles(filteredArticles);
+}
 const getOwnerName = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   return window.location.href.split("/")[3];
@@ -33,13 +42,17 @@ const deleteZombie = () => {
     delete counts[getOwnerName()];
   } catch { }
   Object.keys(counts).filter((name) => counts[name] > getOptionValue("repeatThreshold")).forEach((name) => zombieUsers.add(name));
-  const filteredElements = Array.from(articles).filter((e) => Array.from(zombieUsers).some(name => e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText == name) && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`);
-  deleteArticles(filteredElements);
 }
 
 const deleteVerified = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   const articles = document.querySelectorAll("article");
-  const filteredElements = Array.from(articles).filter((e) => e.querySelectorAll("svg[data-test-id='icon-verified']") && e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`);
-  deleteArticles(filteredElements);
+  Array.from(articles).filter((e) => e.querySelectorAll("svg[data-test-id='icon-verified']") && e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`).forEach((e) => zombieUsers.add(e.querySelectorAll("a")[2].innerText));
+}
+
+const deleteEmoji = () => {
+  if (window.location.href.startsWith("https://x.com/home")) return;
+  const articles = document.querySelectorAll("article");
+  const regEmoji = new RegExp(/^(<img(.*)>)+$/, 'g');
+  Array.from(articles).filter((e) => e.querySelector("div[data-testid='tweetText']").innerHTML.match(regEmoji)).forEach((e) => zombieUsers.add(e.querySelectorAll("a")[2].innerText));
 }

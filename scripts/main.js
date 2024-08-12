@@ -46,6 +46,12 @@ const main = () => {
       deletePromotion()
     } catch { }
   }
+  if (getOptionValue("emoji")) {
+    try {
+      deleteEmoji()
+    } catch { }
+  }
+  deleteZombies();
 }
 
 fetchOptions();
