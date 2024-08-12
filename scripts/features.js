@@ -1,4 +1,5 @@
 let zombieUsers = new Set();
+let tweets = {};
 
 const deleteArticles = targetArticles => {
   let i = 0;
@@ -27,6 +28,7 @@ const getOwnerName = () => {
 
 const onUrlChange = () => {
   zombieUsers = new Set();
+  tweets = {};
 };
 
 const deletePromotion = () => {
