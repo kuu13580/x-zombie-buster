@@ -1,4 +1,5 @@
 let zombieUsers = new Set();
+// {"content": {timestamp: Date, user: string}}
 let tweets = {};
 
 const deleteArticles = targetArticles => {
@@ -85,7 +86,35 @@ const deleteEmoji = () => {
     .forEach(e => zombieUsers.add(e.querySelectorAll("a")[2].innerText));
 };
 
-const deleteDupulicate = () => {
+const deleteDuplicate = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
+  const articles = document.querySelectorAll("article");
+  const contents = Array.from(articles)
+    .map(e => ({
+      content: e.querySelector("div[data-testid='tweetText']")?.innerHTML,
+      timestamp: new Date(e.querySelector("time")?.getAttribute("datetime")),
+      user: e.querySelectorAll("a")?.length > 3 ? e.querySelectorAll("a")[2].innerText : undefined,
+    }))
+    .filter(e => e.content && e.timestamp && e.user);
+  contents.forEach(e => {
+    if (!(e.content in tweets)) {
+      tweets[e.content] = {
+        timestamp: e.timestamp,
+        user: e.user,
+      };
+      return;
+    }
+    if (e.timestamp > tweets[e.content].timestamp) {
+      // 既存のツイートより新しいツイートがあれば、ユーザーをゾンビリストに追加
+      zombieUsers.add(e.user);
+    } else if (e.timestamp < tweets[e.content].timestamp) {
+      // 古いツイートがあればリストを更新して既存をゾンビリストに追加
+      zombieUsers.add(tweets[e.content].user);
+      tweets[e.content] = {
+        timestamp: e.timestamp,
+        user: e.user,
+      };
+    }
+  });
   return;
 };
