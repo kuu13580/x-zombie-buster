@@ -24,7 +24,7 @@ const deletePromotion = () => {
 const deleteZombie = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   const articles = document.querySelectorAll("article");
-  const elements = Array.from(articles).map((e) => e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText);
+  const elements = Array.from(articles).map((e) => e.querySelectorAll("a").length > 3 ? e.querySelectorAll("a")[2].innerText : undefined).filter((e) => e);
   const counts = elements.reduce((prev, cur) => {
     prev[cur] = (prev[cur] || 0) + 1;
     return prev;

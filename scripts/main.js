@@ -49,4 +49,4 @@ const main = () => {
 }
 
 fetchOptions();
-setInterval(main, 1000);
+setInterval(main, 500);
