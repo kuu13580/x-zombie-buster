@@ -24,7 +24,13 @@ const getOptionValue = (key) => {
   return options.hasOwnProperty(key) ? options[key] : defalstOptions[key];
 }
 
+let urlBuffer = "";
+
 const main = () => {
+  if (urlBuffer != window.location.href) {
+    urlBuffer = window.location.href;
+    onUrlChange();
+  };
   if (getOptionValue("verified")) {
     try {
       deleteVerified()

@@ -1,3 +1,5 @@
+let zombieUsers = new Set();
+
 const deleteArticles = (targetArticles) => {
   Array.from(targetArticles).forEach((article) => {
     article.parentElement.parentElement.style.display = "none";
@@ -7,6 +9,10 @@ const deleteArticles = (targetArticles) => {
 const getOwnerName = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   return window.location.href.split("/")[3];
+}
+
+const onUrlChange = () => {
+  zombieUsers = new Set();
 }
 
 const deletePromotion = () => {
@@ -26,8 +32,8 @@ const deleteZombie = () => {
   try {
     delete counts[getOwnerName()];
   } catch { }
-  const filterdNames = Object.keys(counts).filter((name) => counts[name] > getOptionValue("repeatThreshold"));
-  const filteredElements = Array.from(articles).filter((e) => filterdNames.some(name => e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText == name) && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`);
+  Object.keys(counts).filter((name) => counts[name] > getOptionValue("repeatThreshold")).forEach((name) => zombieUsers.add(name));
+  const filteredElements = Array.from(articles).filter((e) => Array.from(zombieUsers).some(name => e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText == name) && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`);
   deleteArticles(filteredElements);
 }
 
