@@ -21,7 +21,8 @@
         "https://x.com/*"
       ],
       "js": [
-        "scripts/main.js"
+        "scripts/main.js",
+        "scripts/features.js"
       ]
     }
   ]
