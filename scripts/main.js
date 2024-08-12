@@ -1,7 +1,14 @@
 console.log("ZonbieBuster Initialized");
 
+const deleteArticle = (targetArticles) => {
+  targetArticles.forEach((article) => {
+    article.innerText = "ZombieBuster: このツイートは非表示に変更されました";
+    article.style.fontSize = "8px";
+  });
+}
+
 const getOwnerName = () => {
-  if (window.location.href.startsWith("https://x.com/home")) return;
+  deleteArticle(filteredElements);
   return window.location.href.split("/")[3];
 }
 
