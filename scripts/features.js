@@ -19,6 +19,7 @@ const deleteZombies = () => {
   );
   deleteArticles(filteredArticles);
 };
+
 const getOwnerName = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   return window.location.href.split("/")[3];
@@ -39,7 +40,7 @@ const deletePromotion = () => {
 // これ以下の機能は、ゾンビを特定しリストに追加するもの
 // 削除自体はmainで一回のみ行う
 
-const deleteZombie = () => {
+const deleteRepeat = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   const articles = document.querySelectorAll("article");
   const elements = Array.from(articles)

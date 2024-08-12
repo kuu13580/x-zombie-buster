@@ -40,7 +40,7 @@ const main = () => {
   }
   if (getOptionValue("repeat")) {
     try {
-      deleteZombie();
+      deleteRepeat();
     } catch {}
   }
   if (getOptionValue("promotion")) {
