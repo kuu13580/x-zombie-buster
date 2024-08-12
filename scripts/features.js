@@ -30,6 +30,9 @@ const deletePromotion = () => {
   deleteArticles(filteredElements);
 }
 
+// これ以下の機能は、ゾンビを特定しリストに追加するもの
+// 削除自体はmainで一回のみ行う
+
 const deleteZombie = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   const articles = document.querySelectorAll("article");
