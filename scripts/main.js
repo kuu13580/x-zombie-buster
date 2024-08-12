@@ -13,14 +13,17 @@ const deleteZombie = () => {
     prev[cur] = (prev[cur] || 0) + 1;
     return prev;
   }, {})
-  const filterdNames = Object.keys(counts).filter((name) => counts[name] > 2)
+  const filterdNames = Object.keys(counts).filter((name) => counts[name] > getOptionValue("repeatThreshold"));
   const filteredElements = Array.from(articles).filter((e) => filterdNames.some(name => e.textContent.includes(name)));
   filteredElements.forEach((e) => e.parentElement.parentElement.parentElement.style.display = "none");
 }
 
-let options = {
+const defalstOptions = {
   repeat: false,
+  repeatThreshold: 2,
 };
+
+let options = defalstOptions;
 
 const fetchOptions = async () => {
   chrome.storage.local.get(["options"]).then((result) => {
@@ -34,11 +37,12 @@ chrome.storage.onChanged.addListener(() => {
 });
 
 const getOptionValue = (key) => {
-  return options.hasOwnProperty(key) ? options[key] : undefined;
+  return options.hasOwnProperty(key) ? options[key] : defalstOptions[key];
 }
 
 const main = async () => {
   console.log(`repeat: ${getOptionValue("repeat")}`);
+  console.log(`repeatThreshold: ${getOptionValue("repeatThreshold")}`);
   if (getOptionValue("repeat")) {
     try {
       deleteZombie()
