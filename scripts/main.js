@@ -1,10 +1,16 @@
 console.log("ZonbieBuster Initialized");
 
+const getOwnerName = () => {
+  if (window.location.href.startsWith("https://x.com/home")) return;
+  return window.location.href.split("/")[3];
+}
+
 const deletePromotion = () => {
   const articles = document.querySelectorAll("article");
   const filteredElements = Array.from(articles).filter((e) => e.textContent.includes("プロモーション"));
   filteredElements.forEach((e) => e.style.display = "none");
 }
+
 const deleteZombie = () => {
   if (window.location.href.startsWith("https://x.com/home")) return;
   const articles = document.querySelectorAll("article");
@@ -13,8 +19,9 @@ const deleteZombie = () => {
     prev[cur] = (prev[cur] || 0) + 1;
     return prev;
   }, {})
+  delete counts[getOwnerName()];
   const filterdNames = Object.keys(counts).filter((name) => counts[name] > getOptionValue("repeatThreshold"));
-  const filteredElements = Array.from(articles).filter((e) => filterdNames.some(name => e.textContent.includes(name)));
+  const filteredElements = Array.from(articles).filter((e) => filterdNames.some(name => e.textContent.includes(name) && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`));
   filteredElements.forEach((e) => e.parentElement.parentElement.parentElement.style.display = "none");
 }
 
