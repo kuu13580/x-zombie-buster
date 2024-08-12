@@ -59,3 +59,8 @@ const deleteEmoji = () => {
   const regEmoji = new RegExp(/^(<img(.*)>)+$/, 'g');
   Array.from(articles).filter((e) => e.querySelector("div[data-testid='tweetText']").innerHTML.match(regEmoji)).forEach((e) => zombieUsers.add(e.querySelectorAll("a")[2].innerText));
 }
+
+const deleteDupulicate = () => {
+  if (window.location.href.startsWith("https://x.com/home")) return;
+  return;
+}

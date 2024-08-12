@@ -3,7 +3,8 @@ const defaultOptions = {
   repeatThreshold: 2,
   promotion: false,
   verified: false,
-  emoji: false
+  emoji: false,
+  duplicate: false
 };
 
 const setStorage = (key, value) => {
@@ -23,6 +24,7 @@ const initializeOptions = () => {
     document.getElementById("promotion").checked = options.promotion;
     document.getElementById("verified").checked = options.verified;
     document.getElementById("emoji").checked = options.emoji;
+    document.getElementById("duplicate").checked = options.duplicate;
   });
 }
 
@@ -31,4 +33,5 @@ document.getElementById("repeat-threshold").addEventListener("change", (e) => se
 document.getElementById("promotion").addEventListener("change", (e) => setStorage("promotion", e.target.checked));
 document.getElementById("verified").addEventListener("change", (e) => setStorage("verified", e.target.checked));
 document.getElementById("emoji").addEventListener("change", (e) => setStorage("emoji", e.target.checked));
+document.getElementById("duplicate").addEventListener("change", (e) => setStorage("duplicate", e.target.checked));
 document.addEventListener("DOMContentLoaded", initializeOptions);

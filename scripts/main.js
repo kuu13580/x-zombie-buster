@@ -4,7 +4,9 @@ const defalstOptions = {
   repeat: false,
   repeatThreshold: 2,
   promotion: false,
-  verified: false
+  verified: false,
+  emoji: false,
+  duplicate: false,
 };
 
 let options = defalstOptions;
@@ -49,6 +51,11 @@ const main = () => {
   if (getOptionValue("emoji")) {
     try {
       deleteEmoji()
+    } catch { }
+  }
+  if (getOptionValue("duplicate")) {
+    try {
+      deleteDuplicate()
     } catch { }
   }
   deleteZombies();
