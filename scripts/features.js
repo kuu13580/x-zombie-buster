@@ -17,7 +17,6 @@ const deleteZombies = () => {
         name => e.querySelectorAll("a").length > 3 && e.querySelectorAll("a")[2].innerText == name
       ) && e.querySelectorAll("a")[2].innerText != `@${getOwnerName()}`
   );
-  console.log(filteredArticles);
   deleteArticles(filteredArticles);
 };
 const getOwnerName = () => {
