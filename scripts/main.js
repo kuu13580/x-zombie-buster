@@ -12,19 +12,19 @@ const defalstOptions = {
 let options = defalstOptions;
 
 const fetchOptions = async () => {
-  chrome.storage.local.get(["options"]).then((result) => {
+  chrome.storage.local.get(["options"]).then(result => {
     if (!result.options) return;
     options = result.options;
   });
-}
+};
 
 chrome.storage.onChanged.addListener(() => {
   fetchOptions();
 });
 
-const getOptionValue = (key) => {
+const getOptionValue = key => {
   return options.hasOwnProperty(key) ? options[key] : defalstOptions[key];
-}
+};
 
 let urlBuffer = "";
 
@@ -32,34 +32,34 @@ const main = () => {
   if (urlBuffer != window.location.href) {
     urlBuffer = window.location.href;
     onUrlChange();
-  };
+  }
   if (getOptionValue("verified")) {
     try {
-      deleteVerified()
-    } catch { }
+      deleteVerified();
+    } catch {}
   }
   if (getOptionValue("repeat")) {
     try {
-      deleteZombie()
-    } catch { }
+      deleteZombie();
+    } catch {}
   }
   if (getOptionValue("promotion")) {
     try {
-      deletePromotion()
-    } catch { }
+      deletePromotion();
+    } catch {}
   }
   if (getOptionValue("emoji")) {
     try {
-      deleteEmoji()
-    } catch { }
+      deleteEmoji();
+    } catch {}
   }
   if (getOptionValue("duplicate")) {
     try {
-      deleteDuplicate()
-    } catch { }
+      deleteDuplicate();
+    } catch {}
   }
   deleteZombies();
-}
+};
 
 fetchOptions();
 setInterval(main, 500);

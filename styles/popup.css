@@ -17,7 +17,7 @@ body {
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 .flex-column {
@@ -25,7 +25,7 @@ body {
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: .5em;
+  gap: 0.5em;
 }
 
 .toggle {
@@ -34,7 +34,7 @@ body {
   visibility: hidden;
 }
 
-.toggle+label {
+.toggle + label {
   display: block;
   position: relative;
   cursor: pointer;
@@ -43,16 +43,16 @@ body {
   user-select: none;
 }
 
-input.toggle-round+label {
+input.toggle-round + label {
   padding: var(--toggle-padding);
   width: var(--toggle-width);
   height: var(--toggle-height);
   background-color: #dddddd;
   border-radius: var(--toggle-height);
-  transition: background-color .4s;
+  transition: background-color 0.4s;
 }
 
-input.toggle-round+label:after {
+input.toggle-round + label:after {
   display: block;
   top: calc(var(--toggle-padding) / 2);
   left: calc(var(--toggle-padding) / 2);
@@ -63,14 +63,14 @@ input.toggle-round+label:after {
   background-color: #fff;
   border-radius: 100%;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-  transition: margin .4s;
+  transition: margin 0.4s;
 }
 
-input.toggle-round:checked+label {
+input.toggle-round:checked + label {
   background-color: #8ce196;
 }
 
-input.toggle-round:checked+label:after {
+input.toggle-round:checked + label:after {
   margin-left: var(--toggle-height);
 }
 
@@ -84,6 +84,6 @@ input.toggle-round:checked+label:after {
   height: 1.5em;
   width: 3em;
   border-radius: 10px;
-  padding-left: .5em;
+  padding-left: 0.5em;
   text-align: center;
 }
